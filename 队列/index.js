@@ -91,6 +91,8 @@ passFlower(names,number)
  }
 
  var d = new PriorityQueue()
- d.enqueue('aa',1);
+ d.enqueue('aa',12);
  d.enqueue('111',10);
+ d.enqueue('1asda11',233);
+
  console.log(d.getItems(),'getItems')
