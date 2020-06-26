@@ -38,7 +38,7 @@ var passFlower = function ( names,number) {
         q.enqueue(names[i])// 入队列
     }
     // 在传的过程中 一直传 ； 直到剩下最后一名玩家
-    var delP 
+    
     while (q.size() > 1) {
         // number == 3 的 时候 剔除玩家； i= 3；
         // 队列头 到队列尾
@@ -47,11 +47,50 @@ var passFlower = function ( names,number) {
             q.enqueue(q.dequeue())
         }
         // 剔除第三位
-         delP = q.dequeue()
-        console.log('淘汰的玩家是:',delp)
+        console.log('淘汰的玩家是:',q.dequeue())
     }
 
     return q.dequeue()
 }
 passFlower(names,number)
 
+/**
+ *  优先队列  与普通队列区别： 带有一个优先级标志
+ * 例子： 头等舱 优先登机；
+ * 考虑点：优先队列: 优先级； priorityQueue
+ */
+
+ var PriorityQueue = function () {
+     var items = [];
+     // 辅助类 
+     var QueueItem = function (ele,proprity) {
+         this.ele = ele;
+         this.proprity = proprity;
+     }
+     this.enqueue = function (ele,proprity) {
+        var pd = new QueueItem(ele,proprity);
+        var isAdd = false; // 是否插入成功
+        // 比较 优先登级;
+        for( var i = 0 ; i< items.length;i++) {
+            if(pd.proprity > items[i].priority) {
+                // 比较； 然后将这个 优先级放在前面
+                items.splice(i,0,pd.proprity );
+                isAdd = true; // 插入成功
+                break; // 
+            }
+        }
+        //  莫有插入成功； 说明优先级很低； 就放入到最后; push
+        if(!isAdd) {
+            items.push(pd)
+        }
+     }
+     // 获取最终值
+     this.getItems = function() {
+         return items
+     }
+ }
+
+ var d = new PriorityQueue()
+ d.enqueue('aa',1);
+ d.enqueue('111',10);
+ console.log(d.getItems(),'getItems')
